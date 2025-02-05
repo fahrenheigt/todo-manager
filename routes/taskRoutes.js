@@ -13,16 +13,19 @@ router.post('/tasks', async (req, res) => {
   }
 });
 
-// Lire toutes les tâches
 router.get('/tasks', async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 5;
       const skip = (page - 1) * limit;
   
-      const tasks = await Task.find().skip(skip).limit(limit);
+      const filter = {};
+      if (req.query.completed !== undefined) {
+        filter.completed = req.query.completed === 'true';
+      }
   
-      const totalTasks = await Task.countDocuments();
+      const tasks = await Task.find(filter).skip(skip).limit(limit);
+      const totalTasks = await Task.countDocuments(filter);
   
       res.json({
         page,
@@ -35,6 +38,7 @@ router.get('/tasks', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+  
 
 // Lire une tâche spécifique
 router.get('/tasks/:id', async (req, res) => {
