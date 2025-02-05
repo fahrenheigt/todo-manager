@@ -14,9 +14,6 @@ Cette API REST permet de gérer une liste de tâches (_To-Do List_). Elle permet
     
 - **Mongoose** : ODM pour interagir avec MongoDB.
     
-- **Postman** : outil de test des requêtes API.
-    
-
 ---
 
 ## **📌 Installation et configuration**
