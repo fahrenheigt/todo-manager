@@ -1,0 +1,59 @@
+const express = require('express');
+const Task = require('../models/task');
+const router = express.Router();
+
+// Créer une tâche
+router.post('/tasks', async (req, res) => {
+  try {
+    const task = new Task(req.body);
+    await task.save();
+    res.status(201).json(task);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Lire toutes les tâches
+router.get('/tasks', async (req, res) => {
+  try {
+    const tasks = await Task.find();
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Lire une tâche spécifique
+router.get('/tasks/:id', async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) return res.status(404).json({ error: 'Tâche non trouvée' });
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Mettre à jour une tâche
+router.put('/tasks/:id', async (req, res) => {
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!task) return res.status(404).json({ error: 'Tâche non trouvée' });
+    res.json(task);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Supprimer une tâche
+router.delete('/tasks/:id', async (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) return res.status(404).json({ error: 'Tâche non trouvée' });
+    res.json({ message: 'Tâche supprimée avec succès' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;

@@ -23,3 +23,10 @@ app.use('/api', taskRoutes);
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
+
+// Accueil
+
+app.get('/', (req, res) => {
+    res.send('Bienvenue sur l\'API To-Do List !');
+  });
+  
