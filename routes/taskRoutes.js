@@ -16,15 +16,22 @@ router.post('/tasks', async (req, res) => {
 router.get('/tasks', async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 5;
+      const limit = parseInt(req.query.limit) || 10;
       const skip = (page - 1) * limit;
+      const sort = req.query.sort || 'asc';
   
       const filter = {};
       if (req.query.completed !== undefined) {
         filter.completed = req.query.completed === 'true';
       }
   
-      const tasks = await Task.find(filter).skip(skip).limit(limit);
+      const sortOption = { title: sort === 'desc' ? -1 : 1 };
+  
+      const tasks = await Task.find(filter)
+        .sort(sortOption)
+        .skip(skip)
+        .limit(limit);
+  
       const totalTasks = await Task.countDocuments(filter);
   
       res.json({

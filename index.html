@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Tâches</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-100 p-6">
+    <div class="max-w-md mx-auto bg-white p-6 shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold mb-4 text-center">Gestion des Tâches</h1>
+        <div class="flex flex-col gap-2 mb-4">
+            <input id="taskInput" class="p-2 border rounded" placeholder="Nouvelle tâche...">
+            <textarea id="taskDescription" class="p-2 border rounded" placeholder="Description..."></textarea>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="addTask()">Ajouter</button>
+        </div>
+        <select id="filter" class="w-full p-2 border rounded mb-4" onchange="fetchTasks()">
+            <option value="all">Toutes</option>
+            <option value="true">Complétées</option>
+            <option value="false">Non complétées</option>
+        </select>
+        <select id="limit" class="w-full p-2 border rounded mb-4" onchange="fetchTasks()">
+            <option value="5">5 par page</option>
+            <option value="10">10 par page</option>
+            <option value="15">15 par page</option>
+        </select>
+        <select id="sort" class="w-full p-2 border rounded mb-4" onchange="fetchTasks()">
+            <option value="asc">Ordre alphabétique A-Z</option>
+            <option value="desc">Ordre alphabétique Z-A</option>
+        </select>
+        <ul id="taskList" class="space-y-2"></ul>
+        <div class="flex justify-between items-center mt-4">
+            <button class="bg-blue-300 px-3 py-1 rounded" onclick="prevPage()">Précédent</button>
+            <span id="pageInfo" class="text-sm"></span>
+            <button class="bg-blue-300 px-3 py-1 rounded" onclick="nextPage()">Suivant</button>
+        </div>
+    </div>
+
+    <!-- Modal de modification -->
+    <div id="editModal" class="hidden fixed inset-0 bg-blue-900 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Modifier la tâche</h2>
+            <input id="editTitle" class="w-full p-2 border rounded mb-2" placeholder="Titre">
+            <textarea id="editDescription" class="w-full p-2 border rounded mb-4" placeholder="Description"></textarea>
+            <div class="flex justify-end gap-2">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="closeModal()">Annuler</button>
+                <button class="bg-green-500 text-white px-4 py-2 rounded" onclick="saveTask()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
