@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Tâches</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .disabled-btn {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body class="bg-blue-100 p-6">
     <div class="max-w-md mx-auto bg-white p-6 shadow-lg rounded-lg">
@@ -30,9 +37,9 @@
         </select>
         <ul id="taskList" class="space-y-2"></ul>
         <div class="flex justify-between items-center mt-4">
-            <button class="bg-blue-300 px-3 py-1 rounded" onclick="prevPage()">Précédent</button>
+            <button id="prevPageBtn" class="bg-blue-300 px-3 py-1 rounded" onclick="prevPage()">Précédent</button>
             <span id="pageInfo" class="text-sm"></span>
-            <button class="bg-blue-300 px-3 py-1 rounded" onclick="nextPage()">Suivant</button>
+            <button id="nextPageBtn" class="bg-blue-300 px-3 py-1 rounded" onclick="nextPage()">Suivant</button>
         </div>
     </div>
 

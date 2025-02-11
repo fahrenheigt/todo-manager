@@ -25,6 +25,24 @@ async function fetchTasks() {
     `).join('');
     totalPages = data.totalPages;
     document.getElementById('pageInfo').textContent = `Page ${page} / ${totalPages}`;
+    updatePaginationButtons();
+}
+
+function updatePaginationButtons() {
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    
+    if (page <= 1) {
+        prevBtn.classList.add('disabled-btn');
+    } else {
+        prevBtn.classList.remove('disabled-btn');
+    }
+    
+    if (page >= totalPages) {
+        nextBtn.classList.add('disabled-btn');
+    } else {
+        nextBtn.classList.remove('disabled-btn');
+    }
 }
 
 async function addTask() {
