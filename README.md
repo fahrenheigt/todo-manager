@@ -1,4 +1,4 @@
-# **Documentation du projet To-Do List API**
+# **Documentation du projet To-Do Manager**
 
 ## **📌 Introduction**
 
