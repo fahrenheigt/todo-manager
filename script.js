@@ -76,8 +76,10 @@ async function saveTask() {
 }
 
 async function deleteTask(id) {
-    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-    fetchTasks();
+    if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
+        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        fetchTasks();
+    }
 }
 
 function prevPage() {
