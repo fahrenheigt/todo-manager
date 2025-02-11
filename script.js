@@ -1,5 +1,5 @@
 const API_URL = "http://localhost:5000/api/tasks";
-let page = 1, totalPages = 1, editTaskId = null;
+let page = 1, totalPages = 1, editTaskId = null, deleteTaskId = null;
 
 async function fetchTasks() {
     const filter = document.getElementById('filter').value;
@@ -93,11 +93,26 @@ async function saveTask() {
     }
 }
 
-async function deleteTask(id) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+function openDeleteModal(id) {
+    deleteTaskId = id;
+    document.getElementById('deleteModal').classList.remove('hidden');
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').classList.add('hidden');
+    deleteTaskId = null;
+}
+
+async function confirmDelete() {
+    if (deleteTaskId) {
+        await fetch(`${API_URL}/${deleteTaskId}`, { method: 'DELETE' });
         fetchTasks();
+        closeDeleteModal();
     }
+}
+
+function deleteTask(id) {
+    openDeleteModal(id);
 }
 
 function prevPage() {
